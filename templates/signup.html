@@ -1,67 +1,59 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Python Flask Bucket List App</title>
-
-
+    <title>Python Flask App</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <link href="../static/signup.css" rel="stylesheet">
+    <link href="../static/css/main.css" rel="stylesheet">
+      <link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.css" type="text/css">
     <script src="../static/js/jquery-3.2.1.min.js"></script>
   </head>
-
   <body>
-
     <div class="container">
       <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" ><a href="main">Home</a></li>
-            <li role="presentation"><a href="#">Sign In</a></li>
-            <li role="presentation" class="active"><a href="#">Sign Up</a></li>
-          </ul>
-        </nav>
         <h3 class="text-muted">Python Flask App</h3>
       </div>
-
       <div class="jumbotron">
-        <h1>Bucket List App</h1>
+        <h1>Pyquiz</h1>
         <form class="form-signin">
         <label for="inputName" class="sr-only">Name</label>
         <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
-
-        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Sign up</button>
+        <label for="inputLastname" class="sr-only">Last Name</label>
+        <input type="lastname" name="inputLastname" id="inputLastname" class="form-control" placeholder="Last Name" required autofocus>
+        <br>
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">I'm ready</button>
       </form>
       </div>
+        <script>
+          $(function() {
+            $('#btnSignUp').click(function() {
 
-      <script>
-      $(function() {
-        $('#btnSignUp').click(function() {
-
-        $.ajax({
-            url: '/signUp',
-            data: $('form').serialize(),
-            type: 'POST',
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-        });
-        });
-</script>
-
-      <footer class="footer">
-        <p>&copy; Company 2015</p>
-      </footer>
-
+            $.ajax({
+                url: '/signUp',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function(response) {
+                    console.log(response);
+                    document.location = '/quizApp'
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+            });
+            });
+        </script>
+      <footer class="jumbotron" style="margin-left: 30%; margin-right: 30%">
+        <details>
+          <summary>2016-2017</summary>
+          <p style="font-size: 100%"> Thom Ernst</p>
+          <p style="font-size: 100%">Immaculata Instituut - Oostmalle</p>
+        </details>
+        <div>
+            <a href="https://github.com/ThomE-immalle/GIP-Database-Project"><span class="fa fa-github fa-3x"></span></a>
+            <a href="mailto:thom.ernst@immalle.be"><span class="fa fa-envelope fa-3x"></span></a>
+        </div>
+    </footer>
     </div>
   </body>
 </html>
