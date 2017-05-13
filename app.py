@@ -1,6 +1,7 @@
 from flask import Flask, render_template, json, request
 from flaskext.mysql import MySQL
 import re
+from Pyquiz import __main__
 
 app = Flask(__name__)
 mysql = MySQL()
