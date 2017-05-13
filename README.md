@@ -27,8 +27,44 @@ DEFAULT CHARACTER SET = latin1;
 
 ```
 
-## Paste this in your stored procedures:
+## Paste these in your stored procedures:
 
 ```mysql
-TODO
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
+    IN p_name VARCHAR(45),
+    IN p_lastname VARCHAR(45)
+)
+BEGIN
+        insert into user
+        (
+            name,
+            lastname
+        )
+        values
+        (
+            p_name,
+            p_lastname
+        );
+END;
+```
+
+and
+
+```mysql
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createScoreEntry`(
+    IN p_score INT(11),
+    IN p_user_id INT(11)
+)
+BEGIN
+        insert into scoreboard
+        (
+            score,
+            user_id
+        )
+        values
+        (
+            p_score,
+            p_user_id
+        );
+END;
 ```

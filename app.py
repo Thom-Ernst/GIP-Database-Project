@@ -1,5 +1,6 @@
-from flask import Flask, render_template, json, request, redirect, url_for
+from flask import Flask, render_template, json, request
 from flaskext.mysql import MySQL
+import re
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -10,6 +11,32 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
 
+# pre-runtime classes and variables here:
+class gm:
+    p_score = 0
+    p_user = ''
+    p_name = ''
+    p_lastname = ''
+    p_user_id = str(0)
+
+class db:
+    con = mysql.connect()
+    cur = con.cursor()
+
+    def fo(self, query):
+        self.cur.execute(query)
+        return re.search('^\((\d*),\)$', str(self.cur.fetchone())).group(1)
+
+    def fa(self, query):
+        self.cur.execute(query)
+        return str(self.cur.fetchall())
+
+    def close(self):
+        self.cur.close()
+        self.con.close()
+
+
+# app.route functions
 @app.route('/')
 def main():
     return render_template('index.html')
@@ -23,16 +50,15 @@ def showSignUp():
 @app.route('/signUp', methods=['POST'])
 def signUp():
     try:
-        p_name = request.form['inputName']
-        p_lastname = request.form['inputLastname']
+        gm.p_name = request.form['inputName']
+        gm.p_lastname = request.form['inputLastname']
 
-        con = mysql.connect()
-        cur = con.cursor()
-        cur.callproc('sp_createUser', (p_name, p_lastname))
-        data = cur.fetchall()
+        db().cur.callproc('sp_createUser', (gm.p_name, gm.p_lastname))
+        data = db().cur.fetchall()
 
         if len(data) is 0:
-            con.commit()
+            db().con.commit()
+            gm.p_user_id = db().fo('SELECT id FROM `GIP-Schema`.user WHERE name = \'{0}\''.format(gm.p_name))
             return json.dumps({'message': 'User created successfully !'})
         else:
             return json.dumps({'error': str(data[0])})
@@ -40,24 +66,31 @@ def signUp():
     except Exception as e:
         return json.dumps({'error': str(e)})
 
-    finally:
-        if con and cur:
-            cur.close()
-            con.close()
-
 
 @app.route('/quizApp')
 def quizApp():
     return render_template('quiz.html')
 
 
-@app.route('/checkAnswer', methods=['GET'])
+@app.route('/checkAnswer', methods=['POST'])
 def checkAnswer():
     try:
-        answer = request.data
+        answer = request.form['answer'] if 'answer' in request.form else None
+        if answer == '1':
+            try:
+                db().cur.callproc('sp_createScoreEntry', (gm.p_score, gm.p_user_id))
+                data = db().cur.fetchall()
 
-        if answer == 1:
-            return 'ham'
+                if len(data) is 0:
+                    db().con.commit()
+                    return json.dumps({'message': 'User created successfully !'})
+                else:
+                    return json.dumps({'error': str(data[0])})
+            except Exception as e:
+                return json.dumps({'error': str(e)})
+
+        else:
+            return 'Answer incorect!'
 
     except Exception as e:
         return 'foo bar'

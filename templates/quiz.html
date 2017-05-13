@@ -37,72 +37,72 @@
         </div>
       </div>
         <script>
-          $(function() {
-            $('#btnAnswer1').click(function() {
-                var answer = 1
-            $.ajax({
-                url: '/checkAnswer',
-                data: answer,
-                type: 'GET',
-                success: function(data) {
-                    console.log(data);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-            });
+            $(function() {
+                $('#btnAnswer1').click(function() {
+                    var answer = 1
+                    $.ajax({
+                        url: '/checkAnswer',
+                        data: {
+                            answer: answer
+                        },
+                        type: 'POST'
+                    }).done(function(data) {
+                        console.log(data);
+                    }).fail(function(error) {
+                        console.log(error);
+                    });
+                });
             });
             
             $(function() {
-            $('#btnAnswer2').click(function() {
-                var answer = 2
-            $.ajax({
-                url: '/checkAnswer',
-                data: answer,
-                type: 'GET',
-                success: function(data) {
-                    console.log(data);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-            });
-            });
-            
-            $(function() {
-            $('#btnAnswer3').click(function() {
-                var answer = 3
-            $.ajax({
-                url: '/checkAnswer',
-                data: answer,
-                type: 'GET',
-                success: function(data) {
-                    console.log(data);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-            });
+                $('#btnAnswer2').click(function() {
+                    var answer = 2
+                    $.ajax({
+                        url: '/checkAnswer',
+                        data: {
+                            answer: answer
+                        },
+                        type: 'POST'
+                    }).done(function(data) {
+                        console.log(data);
+                    }).fail(function(error) {
+                        console.log(error);
+                    });
+                });
             });
             
             $(function() {
-            $('#btnAnswer4').click(function() {
-                var answer = 4
-            $.ajax({
-                url: '/checkAnswer',
-                data: answer,
-                type: 'GET',
-                success: function(data) {
-                    console.log(data);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
+                $('#btnAnswer3').click(function() {
+                    var answer = 3
+                    $.ajax({
+                        url: '/checkAnswer',
+                        data: {
+                            answer: answer
+                        },
+                        type: 'POST'
+                    }).done(function(data) {
+                        console.log(data);
+                    }).fail(function(error) {
+                        console.log(error);
+                    });
+                });
             });
-            });
+            
+            $(function() {
+                $('#btnAnswer4').click(function() {
+                    var answer = 4
+                    $.ajax({
+                        url: '/checkAnswer',
+                        data: {
+                            answer: answer
+                        },
+                        type: 'POST'
+                    }).done(function(data) {
+                        console.log(data);
+                    }).fail(function(error) {
+                        console.log(error);
+                    });
+                });
             });
         </script>
       <footer class="jumbotron" style="margin-left: 30%; margin-right: 30%">
