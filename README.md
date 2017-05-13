@@ -81,7 +81,7 @@ BEGIN
 END;
 ```
 
-### You will also require the user `ìmma` with admin privileges, the following python extract should give you enough information:
+### You will also require the user `imma` with admin privileges, the following python extract should give you enough information:
 
 ```python
 app.config['MYSQL_DATABASE_USER'] = 'imma'
