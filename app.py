@@ -78,7 +78,6 @@ def checkAnswer():
         answer = request.form['answer'] if 'answer' in request.form else None
         if answer == '1':
             try:
-                db().cur.callproc('sp_createScoreEntry', (gm.p_score, gm.p_user_id))
                 data = db().cur.fetchall()
 
                 if len(data) is 0:
@@ -94,3 +93,8 @@ def checkAnswer():
 
     except Exception as e:
         return 'foo bar'
+
+
+@app.route('/sendScore')
+def sendScore():
+    db().cur.callproc('sp_createScoreEntry', (gm.p_score, gm.p_user_id))
