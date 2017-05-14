@@ -7,7 +7,7 @@ class gamelogic:
 
     boolGameloop = True
     p_score = 0
-    p_ronde = 0
+    p_ronde = 1
     p_name = ''
     p_lastname = ''
     p_user = p_name + ' ' + p_lastname

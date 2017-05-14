@@ -57,7 +57,7 @@ def signUp():
         if len(data) is 0:
             db().con.commit()
             gm.p_user_id = db().fo('SELECT id FROM `GIP-Schema`.user WHERE name = \'{0}\''.format(gm.p_name))
-            gm.p_ronde = 0
+            gm.p_ronde = 1
             return json.dumps({'message': 'User created successfully !'})
         else:
             return json.dumps({'error': str(data[0])})
@@ -68,7 +68,6 @@ def signUp():
 
 @app.route('/quizApp')
 def quizApp():
-    gm.p_ronde += 1
     gm.assignvars()
     if gm.p_lastresult == 2:
         gamestr = 'Incorrect! The correct answer was: {0}.'.format(gm.dj.trackChosen.name)
@@ -91,6 +90,7 @@ def quizApp():
 @app.route('/checkAnswer', methods=['POST'])
 def checkAnswer():
     try:
+        gm.p_ronde += 1
         answer = request.form['answer'] if 'answer' in request.form else None
         if answer == str(gm.dj.trackKey):
             gm.p_lastresult = 1

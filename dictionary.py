@@ -44,9 +44,3 @@ class DJ:
         rdnumber = random.randint(0,3)
         self.trackChosen = self.dictChosen.get(rdnumber)
         self.trackKey = rdnumber + 1
-
-# Test object
-dj = DJ()
-dj.randomizeArray()
-dj.chooseListing()
-dj.chooseTrack()
