@@ -35,18 +35,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>{{name1}}</td>
-                    <td>{{score1}}</td>
-                  </tr>
-                  <tr>
-                    <td>{{name2}}</td>
-                    <td>{{score2}}</td>
-                  </tr>
-                  <tr>
-                    <td>{{name3}}</td>
-                    <td>{{score3}}</td>
-                  </tr>
+                    {% for row in scoredata %} 
+                    <tr>
+                    {% for field in row %} 
+                    <td>{{field}}</td> 
+                    {% endfor %} 
+                    </tr> 
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

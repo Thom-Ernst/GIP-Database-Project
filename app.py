@@ -27,7 +27,7 @@ class db:
 
     def fa(self, query):
         self.cur.execute(query)
-        return str(self.cur.fetchall())
+        return self.cur.fetchall()
 
     def close(self):
         self.cur.close()
@@ -132,16 +132,5 @@ def showScoreboard():
                   'FROM `GIP-Schema`.scoreboard '
                   'INNER JOIN `GIP-Schema`.user ON user_id = user.id '
                   'ORDER BY score DESC')
-    name1 = db().fo('')
-    name2 = db().fo('')
-    name3 = db().fo('')
-    score1 = db().fo('')
-    score2 = db().fo('')
-    score3 = db().fo('')
     return render_template('scoreboard.html',
-                           name1 = name1,
-                           name2 = name2,
-                           name3 = name3,
-                           score1 = score1,
-                           score2 = score2,
-                           score3 = score3)
+                           scoredata = query)
