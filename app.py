@@ -1,7 +1,7 @@
-from flask import Flask, render_template, json, request
-from flaskext.mysql import MySQL
 import re
-from Pyquiz import __main__
+from flask import Flask, render_template, json, request
+from __main__ import gamelogic
+from flaskext.mysql import MySQL
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -13,12 +13,9 @@ mysql.init_app(app)
 
 
 # pre-runtime classes and variables here:
-class gm:
-    p_score = 0
-    p_user = ''
-    p_name = ''
-    p_lastname = ''
-    p_user_id = str(0)
+
+
+gm = gamelogic()
 
 class db:
     con = mysql.connect()
@@ -70,7 +67,7 @@ def signUp():
 
 @app.route('/quizApp')
 def quizApp():
-    return render_template('quiz.html')
+    return render_template('quiz.html', gamestring = 'This quiz is for you, {0}!'.format(gm.p_name), file = gm.p_file)
 
 
 @app.route('/checkAnswer', methods=['POST'])
@@ -99,3 +96,4 @@ def checkAnswer():
 @app.route('/sendScore')
 def sendScore():
     db().cur.callproc('sp_createScoreEntry', (gm.p_score, gm.p_user_id))
+

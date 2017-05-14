@@ -14,7 +14,7 @@
       <div class="header">
         <h3 class="text-muted">Pyquiz</h3>
       </div>
-      <div class="jumbotron pure-g">
+      <div class="jumbotron">
         <style>
             .spc {
                 padding: 3px;
@@ -23,6 +23,10 @@
                 width: 650px;
             }
         </style>
+        <p>{{gamestring}}</p>
+        <br>
+        <div class="pure-g">
+        <br>
         <div class="pure-u-1-2 spc">
         <input type="submit" id="btnAnswer1" class="btn btn-lg btn-primary btn-block p2" type="button" value="Answer #1">
         </div>
@@ -35,7 +39,14 @@
         <div class="pure-u-1-2 spc">
         <input type="submit" id="btnAnswer4" class="btn btn-lg btn-primary btn-block p2" type="button" value="Answer #4">
         </div>
+        </div>
       </div>
+        <div>
+        <audio autoplay>
+                <source src="static/music/{{file}}" type="audio/ogg">
+                Your browser does not support this audio format.
+        </audio>
+        </div>
         <script>
             $(function() {
                 $('#btnAnswer1').click(function() {
