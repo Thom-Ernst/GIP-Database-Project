@@ -70,14 +70,22 @@ def signUp():
 def quizApp():
     gm.p_ronde += 1
     gm.assignvars()
+    if gm.p_lastresult == 2:
+        gamestr = 'Incorrect! The correct answer was: {0}.'.format(gm.dj.trackChosen.name)
+    elif gm.p_lastresult == 1:
+        gamestr = 'That answer is Correct! +1 to your score!'
+    else:
+        gamestr = 'Welcome to PyQuiz, {0}! Choose the song you think is playing, you play 10 rounds.'.format(gm.p_user)
+
     return render_template('quiz.html',
-                           gamestring = 'This quiz is for you, {0}!'.format(gm.p_name),
+                           gamestring = gamestr,
                            file = gm.p_file,
                            song1 = gm.songs(0),
                            song2 = gm.songs(1),
                            song3 = gm.songs(2),
                            song4 = gm.songs(3),
-                           round = gm.p_ronde)
+                           round = gm.p_ronde,
+                           lastresult = gm.p_lastresult)
 
 
 @app.route('/checkAnswer', methods=['POST'])
@@ -85,10 +93,11 @@ def checkAnswer():
     try:
         answer = request.form['answer'] if 'answer' in request.form else None
         if answer == str(gm.dj.trackKey):
-            gm.p_score += 1
+            gm.p_lastresult = 1
             return 'Answer Correct! +1 to your score!'
 
         else:
+            gm.p_lastresult = 2
             return 'Answer incorect!'
 
     except Exception as e:
@@ -119,11 +128,20 @@ def sendScore():
 
 @app.route('/scoreBoard')
 def showScoreboard():
-    #gm.p_user_id = db().fo('')
+    query = db().fa('SELECT name, score '
+                  'FROM `GIP-Schema`.scoreboard '
+                  'INNER JOIN `GIP-Schema`.user ON user_id = user.id '
+                  'ORDER BY score DESC')
+    name1 = db().fo('')
+    name2 = db().fo('')
+    name3 = db().fo('')
+    score1 = db().fo('')
+    score2 = db().fo('')
+    score3 = db().fo('')
     return render_template('scoreboard.html',
-                           name1 = 'user1',
-                           name2 = 'user2',
-                           name3 = 'user3',
-                           score1 = '1',
-                           score2 = '2',
-                           score3 = '3')
+                           name1 = name1,
+                           name2 = name2,
+                           name3 = name3,
+                           score1 = score1,
+                           score2 = score2,
+                           score3 = score3)

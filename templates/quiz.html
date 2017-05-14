@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.css" type="text/css">
     <link rel="stylesheet" href="https://yui-s.yahooapis.com/pure/0.6.0/pure-min.css">
     <script src="../static/js/jquery-3.2.1.min.js"></script>
+    <link rel="icon"
+      type="image/png"
+      href="../static/img/favicon.png">
 </head>
 <body>
     <script>
@@ -15,6 +18,24 @@
         if (round > 20){
             document.location = 'scoreBoard'
         };
+    </script>
+    <audio id="correct">
+        <source src="static/sounds/correct.ogg" type="audio/ogg">
+        Your browser does not support this audio format.
+    </audio>
+    <audio id="incorrect">
+        <source src="static/sounds/incorrect.ogg" type="audio/ogg">
+        Your browser does not support this audio format.
+    </audio>
+    <script>
+        var lastresult = {{lastresult}}
+            if (lastresult == 2 ) {
+                var sound = document.getElementById("incorrect");
+                sound.play();
+            }else if (lastresult == 1){
+                var sound = document.getElementById("correct");
+                sound.play();
+            };
     </script>
     <div class="container">
         <div class="header">
@@ -31,6 +52,7 @@
                 }
             </style>
             <p>{{gamestring}}</p>
+            <p>Round {{round}} of 10</p>
             <br>
             <div class="pure-g">
                 <br>
