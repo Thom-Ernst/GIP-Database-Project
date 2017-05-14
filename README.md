@@ -117,3 +117,8 @@ Feel free to take a look at my Entity Relation Diagram and my usecases:
 ![Insert image here](#)
 
 I intend to play the music files using html5, but that will only happen after i've made all code compatible with the Flask framework.
+
+
+*shoutouts to Bert Anthonissen and the Stackoverflow Community to help me in my dire times of need.*
+
+All the code in the project was written by me, no code was literally copied over from any website.
