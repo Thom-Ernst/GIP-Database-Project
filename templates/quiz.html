@@ -1,55 +1,62 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Python Flask App</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link href="../static/css/main.css" rel="stylesheet">
-      <link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.css" type="text/css">
-      <link rel="stylesheet" href="https://yui-s.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/pure/0.6.0/pure-min.css">
     <script src="../static/js/jquery-3.2.1.min.js"></script>
-  </head>
-  <body>
+</head>
+<body>
+    <script>
+        var round = {{round}};
+        if (round > 20){
+            document.location = 'scoreBoard'
+        };
+    </script>
     <div class="container">
-      <div class="header">
-        <h3 class="text-muted">Pyquiz</h3>
-      </div>
-      <div class="jumbotron">
-        <style>
-            .spc {
-                padding: 3px;
-            }
-            .form-answer {
-                width: 650px;
-            }
-        </style>
-        <p>{{gamestring}}</p>
-        <br>
-        <div class="pure-g">
-        <br>
-        <div class="pure-u-1-2 spc">
-        <input type="submit" id="btnAnswer1" class="btn btn-lg btn-primary btn-block p2" type="button" value="Answer #1">
+        <div class="header">
+            <h3 class="text-muted">Pyquiz</h3>
         </div>
-        <div class="pure-u-1-2 spc">
-        <input type="submit" id="btnAnswer2" class="btn btn-lg btn-primary btn-block p2" type="button" value="Answer #2">
+        <div class="jumbotron">
+            <style>
+                .spc {
+                    padding: 3px;
+                }
+
+                .form-answer {
+                    width: 650px;
+                }
+            </style>
+            <p>{{gamestring}}</p>
+            <br>
+            <div class="pure-g">
+                <br>
+                <div class="pure-u-1-2 spc">
+                    <input type="submit" id="btnAnswer1" class="btn btn-lg btn-primary btn-block p2" type="button" value="{{song1}}">
+                </div>
+                <div class="pure-u-1-2 spc">
+                    <input type="submit" id="btnAnswer2" class="btn btn-lg btn-primary btn-block p2" type="button" value="{{song2}}">
+                </div>
+                <div class="pure-u-1-2 spc">
+                    <input type="submit" id="btnAnswer3" class="btn btn-lg btn-primary btn-block p2" type="button" value="{{song3}}">
+                </div>
+                <div class="pure-u-1-2 spc">
+                    <input type="submit" id="btnAnswer4" class="btn btn-lg btn-primary btn-block p2" type="button" value="{{song4}}">
+                </div>
+            </div>
         </div>
-        <div class="pure-u-1-2 spc">
-        <input type="submit" id="btnAnswer3" class="btn btn-lg btn-primary btn-block p2" type="button" value="Answer #3">
-        </div>
-        <div class="pure-u-1-2 spc">
-        <input type="submit" id="btnAnswer4" class="btn btn-lg btn-primary btn-block p2" type="button" value="Answer #4">
-        </div>
-        </div>
-      </div>
         <div>
-        <audio autoplay>
-                <source src="static/music/{{file}}" type="audio/ogg">
+            <audio autoplay>
+                <source src="static/{{file}}" type="audio/ogg">
                 Your browser does not support this audio format.
-        </audio>
+            </audio>
         </div>
         <script>
-            $(function() {
-                $('#btnAnswer1').click(function() {
+            $(function () {
+                $('#btnAnswer1').click(function () {
                     var answer = 1
                     $.ajax({
                         url: '/checkAnswer',
@@ -57,16 +64,17 @@
                             answer: answer
                         },
                         type: 'POST'
-                    }).done(function(data) {
+                    }).done(function (data) {
                         console.log(data);
-                    }).fail(function(error) {
+                    }).fail(function (error) {
                         console.log(error);
                     });
+                    location.reload();
                 });
             });
-            
-            $(function() {
-                $('#btnAnswer2').click(function() {
+
+            $(function () {
+                $('#btnAnswer2').click(function () {
                     var answer = 2
                     $.ajax({
                         url: '/checkAnswer',
@@ -74,16 +82,17 @@
                             answer: answer
                         },
                         type: 'POST'
-                    }).done(function(data) {
+                    }).done(function (data) {
                         console.log(data);
-                    }).fail(function(error) {
+                    }).fail(function (error) {
                         console.log(error);
                     });
+                    location.reload();
                 });
             });
-            
-            $(function() {
-                $('#btnAnswer3').click(function() {
+
+            $(function () {
+                $('#btnAnswer3').click(function () {
                     var answer = 3
                     $.ajax({
                         url: '/checkAnswer',
@@ -91,16 +100,17 @@
                             answer: answer
                         },
                         type: 'POST'
-                    }).done(function(data) {
+                    }).done(function (data) {
                         console.log(data);
-                    }).fail(function(error) {
+                    }).fail(function (error) {
                         console.log(error);
                     });
+                    location.reload();
                 });
             });
-            
-            $(function() {
-                $('#btnAnswer4').click(function() {
+
+            $(function () {
+                $('#btnAnswer4').click(function () {
                     var answer = 4
                     $.ajax({
                         url: '/checkAnswer',
@@ -108,25 +118,26 @@
                             answer: answer
                         },
                         type: 'POST'
-                    }).done(function(data) {
+                    }).done(function (data) {
                         console.log(data);
-                    }).fail(function(error) {
+                    }).fail(function (error) {
                         console.log(error);
                     });
+                    location.reload();
                 });
             });
         </script>
-      <footer class="jumbotron" style="margin-left: 30%; margin-right: 30%">
-        <details>
-          <summary>2016-2017</summary>
-          <p style="font-size: 100%"> Thom Ernst</p>
-          <p style="font-size: 100%">Immaculata Instituut - Oostmalle</p>
-        </details>
-        <div>
-            <a href="https://github.com/ThomE-immalle/GIP-Database-Project"><span class="fa fa-github fa-3x"></span></a>
-            <a href="mailto:thom.ernst@immalle.be"><span class="fa fa-envelope fa-3x"></span></a>
-        </div>
-    </footer>
+        <footer class="jumbotron" style="margin-left: 30%; margin-right: 30%">
+            <details>
+                <summary>2016-2017</summary>
+                <p style="font-size: 100%"> Thom Ernst</p>
+                <p style="font-size: 100%">Immaculata Instituut - Oostmalle</p>
+            </details>
+            <div>
+                <a href="https://github.com/ThomE-immalle/GIP-Database-Project"><span class="fa fa-github fa-3x"></span></a>
+                <a href="mailto:thom.ernst@immalle.be"><span class="fa fa-envelope fa-3x"></span></a>
+            </div>
+        </footer>
     </div>
-  </body>
+</body>
 </html>

@@ -46,9 +46,7 @@ class DJ:
         self.trackKey = rdnumber + 1
 
 # Test object
-"""
 dj = DJ()
 dj.randomizeArray()
 dj.chooseListing()
 dj.chooseTrack()
-"""
