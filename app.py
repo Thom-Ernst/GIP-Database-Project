@@ -70,7 +70,7 @@ def signUp():
 def quizApp():
     gm.assignvars()
     if gm.p_lastresult == 2:
-        gamestr = 'Incorrect! The correct answer was: {0}.'.format(gm.dj.trackChosen.name)
+        gamestr = 'Incorrect! The correct answer was: {0}.'.format(gm.p_djprevsong.name)
     elif gm.p_lastresult == 1:
         gamestr = 'That answer is Correct! +1 to your score!'
     else:
@@ -89,29 +89,26 @@ def quizApp():
 
 @app.route('/checkAnswer', methods=['POST'])
 def checkAnswer():
-    try:
-        gm.p_ronde += 1
-        answer = request.form['answer'] if 'answer' in request.form else None
-        if answer == str(gm.dj.trackKey):
-            gm.p_lastresult = 1
-            return 'Answer Correct! +1 to your score!'
-
-        else:
-            gm.p_lastresult = 2
-            return 'Answer incorect!'
-
-    except Exception as e:
-        return 'something went wrong! (checkAnswer)'
-
-    finally:
-        if gm.p_ronde == 10:
-            sendScore()
-
-        else:
-            quizApp()
+    gm.p_ronde += 1
+    answer = request.form['answer'] if 'answer' in request.form else None
+    if answer == str(gm.dj.trackKey):
+        gm.p_lastresult = 1
+        gm.p_score += 1
+        checkrounds()
+        return 'Answer Correct! +1 to your score!'
 
 
-@app.route('/sendScore')
+    else:
+        gm.p_lastresult = 2
+        checkrounds()
+        return 'Answer incorect!'
+
+
+def checkrounds():
+    if gm.p_ronde == 10:
+        sendScore()
+
+
 def sendScore():
     try:
         db().cur.callproc('sp_createScoreEntry', (gm.p_score, gm.p_user_id))
@@ -126,11 +123,12 @@ def sendScore():
     except Exception as e:
         return json.dumps({'error': str(e)})
 
+
 @app.route('/scoreBoard')
 def showScoreboard():
     query = db().fa('SELECT name, score '
-                  'FROM `GIP-Schema`.scoreboard '
-                  'INNER JOIN `GIP-Schema`.user ON user_id = user.id '
-                  'ORDER BY score DESC')
+                    'FROM `GIP-Schema`.scoreboard '
+                    'INNER JOIN `GIP-Schema`.user ON user_id = user.id '
+                    'ORDER BY score DESC')
     return render_template('scoreboard.html',
                            scoredata = query)
