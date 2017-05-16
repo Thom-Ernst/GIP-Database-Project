@@ -11,7 +11,7 @@ class DJ:
     # put song variables here in this format: trackName = Track("string of song to be displayed", 'music/filename.ogg')
     trackShootingStars = Track("Shooting Stars", 'music/shooting.ogg')
     trackFeelGoodInc = Track("Feel Good Inc", 'music/feelgood.ogg')
-    trackArcticMonkeys = Track("Do I Wanna Know", 'music/artic.ogg')
+    trackArcticMonkeys = Track("Do I Wanna Know", 'music/arctic.ogg')
     trackRayParkerJr = Track("Ghostbusters", 'music/rayparker.ogg')
     trackMCHammer = Track("U Can t Touch This", 'music/hammer.ogg')
     trackNirvana = Track("Smells Like Teen Spirit", 'music/nirvana.ogg')
