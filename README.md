@@ -96,7 +96,7 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 You will have to host the flask server... The most reliable way to do this, is navigate to the project directory with a terminal and type the following commands:
 
 ```bash
-python -m fexport FLASK_APP=app.py
+export FLASK_APP=app.py
 python -m flask run
 ```
 
