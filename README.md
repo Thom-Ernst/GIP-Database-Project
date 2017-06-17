@@ -11,7 +11,7 @@ A webapp quiz using Mysql, Python 2.7 and Flask
 
 - python
 - python-flask
-- flaskext-mysql
+- flask-mysql
 
 ### SQL Code:
 
